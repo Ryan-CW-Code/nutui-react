@@ -1,19 +1,20 @@
-import React, { ForwardRefRenderFunction, forwardRef } from 'react'
+import React, { ForwardRefRenderFunction, forwardRef, useState } from 'react'
 import type { MouseEvent } from 'react'
 import classNames from 'classnames'
+import { Close } from '@nutui/icons-react'
 import Button from '@/packages/button'
 import confirm from './confirm'
 import { DialogWrap } from './dialogwrap'
 import { useConfig } from '@/packages/configprovider'
 import {
-  BasicDialogProps,
+  DialogBasicProps,
   DialogReturnProps,
   DialogComponent,
-  ConfirmProps,
+  DialogConfirmProps,
 } from './config'
 import { ComponentDefaults } from '@/utils/typings'
 
-export type DialogProps = BasicDialogProps
+export type DialogProps = DialogBasicProps
 const defaultProps = {
   ...ComponentDefaults,
   confirmText: '',
@@ -25,6 +26,8 @@ const defaultProps = {
   disableConfirmButton: false,
   footerDirection: 'horizontal',
   lockScroll: true,
+  closeIconPosition: 'bottom',
+  closeIcon: false,
   beforeCancel: () => true,
   beforeClose: () => true,
 } as DialogProps
@@ -44,6 +47,8 @@ const BaseDialog: ForwardRefRenderFunction<unknown, Partial<DialogProps>> = (
     closeOnOverlayClick,
     confirmText,
     cancelText,
+    closeIconPosition,
+    closeIcon,
     onClose,
     onCancel,
     onConfirm,
@@ -52,6 +57,7 @@ const BaseDialog: ForwardRefRenderFunction<unknown, Partial<DialogProps>> = (
     ...restProps
   } = props
   const classPrefix = 'nut-dialog'
+  const [loading, setLoading] = useState(false)
 
   const renderFooter = () => {
     if (footer === null) return ''
@@ -64,10 +70,16 @@ const BaseDialog: ForwardRefRenderFunction<unknown, Partial<DialogProps>> = (
       onCancel?.()
     }
 
-    const handleOk = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleOk = async (e: MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation()
-      onClose?.()
-      onConfirm?.(e)
+      setLoading(true)
+      try {
+        await onConfirm?.(e)
+        setLoading(false)
+        onClose?.()
+      } catch {
+        setLoading(false)
+      }
     }
 
     return (
@@ -90,12 +102,32 @@ const BaseDialog: ForwardRefRenderFunction<unknown, Partial<DialogProps>> = (
               })}
               disabled={disableConfirmButton}
               onClick={(e) => handleOk(e)}
+              loading={loading}
             >
               {confirmText || locale.confirm}
             </Button>
           )}
         </>
       )
+    )
+  }
+
+  const renderCloseIcon = () => {
+    if (!closeIcon) return null
+    const handleCancel = () => {
+      if (!beforeCancel?.()) return
+      if (!beforeClose?.()) return
+      onClose?.()
+      onCancel?.()
+    }
+    const closeClasses = classNames({
+      [`${classPrefix}-close`]: true,
+      [`${classPrefix}-close-${closeIconPosition}`]: true,
+    })
+    return (
+      <div className={closeClasses} onClick={handleCancel}>
+        {React.isValidElement(closeIcon) ? closeIcon : <Close />}
+      </div>
     )
   }
 
@@ -106,6 +138,7 @@ const BaseDialog: ForwardRefRenderFunction<unknown, Partial<DialogProps>> = (
         visible={visible}
         lockScroll={lockScroll}
         footer={renderFooter()}
+        close={renderCloseIcon()}
         onClose={onClose}
         onCancel={onCancel}
       />
@@ -115,11 +148,11 @@ const BaseDialog: ForwardRefRenderFunction<unknown, Partial<DialogProps>> = (
 
 export const Dialog: DialogComponent = forwardRef(BaseDialog) as DialogComponent
 
-Dialog.confirm = (props: ConfirmProps): DialogReturnProps => {
+Dialog.confirm = (props: DialogConfirmProps): DialogReturnProps => {
   return confirm(props)
 }
 ;['alert'].forEach((type) => {
-  ;(Dialog as any)[type] = (props: ConfirmProps) => {
+  ;(Dialog as any)[type] = (props: DialogConfirmProps) => {
     return confirm({
       ...props,
       isNotice: false,

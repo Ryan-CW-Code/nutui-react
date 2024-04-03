@@ -38,6 +38,76 @@ export default App;
 
 :::
 
+
+### Card Mode
+:::demo
+
+```tsx
+
+import React from "react";
+import { Swipe, Cell, Button } from '@nutui/nutui-react';
+import { Del } from '@nutui/icons-react'
+
+const divNode = (text: string, style: any) => {
+  return (
+    <div
+      style={{
+        width: '60px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        ...style,
+      }}
+    >
+      <Del style={{ marginBottom: '8px' }}/>
+      <>{text}</>
+    </div>
+  )
+}
+
+const App = () => {
+  return <>
+    <Swipe
+      style={{ height: '104px' }}
+      rightAction={
+        <div
+          style={{
+            height: 'inherit',
+            width: '240px',
+            display: 'flex',
+            fontSize: '12px',
+          }}
+        >
+          <>
+            {divNode('AlwaysBuy', {
+              background: '#F8F8F8',
+              color: '#1A1A1A',
+            })}
+            {divNode('Collected', {
+              background: '#ffcc00',
+              color: '#FFF',
+            })}
+            {divNode('Liked', {
+              background: '#FF860D',
+              color: '#FFF',
+            })}
+            {divNode('Delete', {
+              background: '#FA2C19',
+              color: '#FFF',
+            })}
+          </>
+        </div>
+      }
+    >
+      <Cell title={`${translated.leftDel}+Icon`} radius={0} />
+    </Swipe>
+  </>
+}
+export default App;
+
+```
+
 ### Control via instance method
 
 :::demo
@@ -275,9 +345,9 @@ export default App;
 | onOpen | open the cell sidebar | `(name, position): { name: string \| number, position: 'left' \| 'right' } => void` | `-`|
 | onClose | collapse the cell sidebar | `(name, position): { name: string \| number, position: 'left' \| 'right' } => void` | `-`|
 | onActionClick | triggered when clicking on the left or right | `(event: MouseEvent<HTMLDivElement>, position: 'left' \|'right') => void` | `-`|
-| onTouchStart | onTouchStart | `(event: TouchEvent<HTMLDivElement>) => void` | `-`|
-| onTouchMove | onTouchMove | `(event: TouchEvent<HTMLDivElement>) => void` | `-`|
-| onTouchEnd | onTouchEnd | `(event: TouchEvent<HTMLDivElement>) => void` | `-`|
+| onTouchStart | triggered when starting to touch | `(event: TouchEvent<HTMLDivElement>) => void` | `-`|
+| onTouchMove | triggered when starting to move | `(event: TouchEvent<HTMLDivElement>) => void` | `-`|
+| onTouchEnd | triggered when finishing to touch | `(event: TouchEvent<HTMLDivElement>) => void` | `-`|
 
 ### Ref
 

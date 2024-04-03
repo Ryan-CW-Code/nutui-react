@@ -13,15 +13,15 @@ import {
   Input as TaroInput,
 } from '@tarojs/components'
 import { MaskClose } from '@nutui/icons-react-taro'
-import { getEnv, ENV_TYPE } from '@tarojs/taro'
+import Taro, { getEnv, ENV_TYPE } from '@tarojs/taro'
 import { formatNumber } from './util'
-import { useConfig } from '@/packages/configprovider/index.taro'
+import { useConfig, useRtl } from '@/packages/configprovider/index.taro'
 import { BasicComponent, ComponentDefaults } from '@/utils/typings'
 import { usePropsValue } from '@/utils/use-props-value'
 
-export type InputAlignType = 'left' | 'center' | 'right'
+export type InputAlign = 'left' | 'center' | 'right'
 export type InputFormatTrigger = 'onChange' | 'onBlur'
-export type ConfirmTextType = 'send' | 'search' | 'next' | 'go' | 'done'
+export type InputConfirmType = 'send' | 'search' | 'next' | 'go' | 'done'
 
 export interface InputProps extends BasicComponent {
   type: keyof TaroInputProps.Type | HTMLInputTypeAttribute
@@ -29,7 +29,7 @@ export interface InputProps extends BasicComponent {
   defaultValue?: string
   value?: string
   placeholder: string
-  align: InputAlignType
+  align: InputAlign
   disabled: boolean
   readOnly: boolean
   maxLength: number
@@ -37,7 +37,7 @@ export interface InputProps extends BasicComponent {
   clearIcon: React.ReactNode
   formatTrigger: InputFormatTrigger
   autoFocus: boolean
-  confirmType: ConfirmTextType
+  confirmType: InputConfirmType
   formatter?: (value: string) => void
   onChange?: (value: string) => void
   onBlur?: (value: string) => void
@@ -74,6 +74,7 @@ export const Input = forwardRef(
       >,
     ref
   ) => {
+    const rtl = useRtl()
     const { locale } = useConfig()
     const {
       type,
@@ -167,9 +168,13 @@ export const Input = forwardRef(
       forceUpdate()
     }
 
-    const handleFocus = (event: Event) => {
-      const val: any = (event.target as any).value
-      onFocus && onFocus(val)
+    const handleFocus = (event: any) => {
+      if (Taro.getEnv() === 'WEB') {
+        const val: any = (event.target as any).value
+        onFocus && onFocus(val)
+      } else {
+        onFocus?.(value)
+      }
       setActive(true)
     }
 
@@ -177,12 +182,17 @@ export const Input = forwardRef(
       updateValue(value, 'onChange')
     }
 
-    const handleBlur = (event: Event) => {
-      const val: any = (event.target as any).value
-      updateValue(val, 'onBlur')
-      setTimeout(() => {
+    const handleBlur = (event: any) => {
+      if (Taro.getEnv() === 'WEB') {
+        const val: any = (event.target as any).value
+        updateValue(val, 'onBlur')
+        setTimeout(() => {
+          setActive(false)
+        }, 50)
+      } else {
+        updateValue(value, 'onBlur')
         setActive(false)
-      }, 50)
+      }
     }
     const inputType = (type: any) => {
       if (getEnv() === ENV_TYPE.WEB) {
@@ -211,7 +221,18 @@ export const Input = forwardRef(
           name={name}
           className="nut-input-native"
           ref={inputRef}
-          style={{ textAlign: align }}
+          style={{
+            // eslint-disable-next-line no-nested-ternary
+            textAlign: rtl
+              ? // eslint-disable-next-line no-nested-ternary
+                align === 'right'
+                ? // eslint-disable-next-line no-nested-ternary
+                  'left'
+                : align === 'left'
+                  ? 'right'
+                  : 'center'
+              : align,
+          }}
           type={inputType(type) as any}
           password={type === 'password'}
           maxlength={maxLength}
@@ -220,12 +241,8 @@ export const Input = forwardRef(
           value={value}
           focus={autoFocus}
           confirmType={confirmType}
-          onBlur={(e: any) => {
-            handleBlur(e)
-          }}
-          onFocus={(e: any) => {
-            handleFocus(e)
-          }}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
           onInput={(e: any) => {
             handleInput(e.currentTarget.value)
           }}
@@ -241,10 +258,8 @@ export const Input = forwardRef(
           onClick={(e) => {
             e.stopPropagation()
             if (!disabled) {
-              setTimeout(() => {
-                setValue('')
-                onClear && onClear('')
-              }, 50)
+              setValue('')
+              onClear?.('')
             }
           }}
         >

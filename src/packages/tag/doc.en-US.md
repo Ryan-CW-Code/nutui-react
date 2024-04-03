@@ -8,7 +8,6 @@ Label for labeling and classification.
 
 ```tsx
 import { Tag } from '@nutui/nutui-react';
-
 ```
 
 ## Demo
@@ -17,23 +16,7 @@ import { Tag } from '@nutui/nutui-react';
 
 :::demo
 
-```tsx
-import React from "react";
-import { Tag } from '@nutui/nutui-react';
-
-const App = () => {
-  return (
-    <>
-      <Tag type="primary">Label</Tag>
-      <Tag type="info">Label</Tag>
-      <Tag type="success">Label</Tag>
-      <Tag type="danger">Label</Tag>
-      <Tag type="warning">Label</Tag>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
 :::
 
@@ -41,101 +24,26 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Failure } from '@nutui/icons-react';
-import { Tag } from '@nutui/nutui-react';
-
-const App = () => {
-  return (
-    <>
-      <Tag plain>Label</Tag>
-      <Tag round type='primary'>Label</Tag>
-      <Tag mark type='primary'>Label</Tag>
-      <Tag closeable
-           onClose={() => alert('Tag closed')}
-           type='primary'>Label</Tag>
-      <Tag closeable
-           closeIcon={<Failure width={8} height={8} />}
-           onClose={() => alert('Tag closed')}
-           type='primary'>Label</Tag>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
 :::
-
 
 ### Custom color
 
 :::demo
 
-```tsx
-import React from "react";
-import { Tag } from '@nutui/nutui-react';
-
-const App = () => {
-  return (
-    <>
-      <Tag background="#FA685D">Label</Tag>
-      <Tag background="#E9E9E9" color="#999999">Label</Tag>
-      <Tag background="#FA2400" plain>Label</Tag>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
 
 :::
 
-### Click event
+### image-text
 
 :::demo
 
-```tsx
-import React from "react";
-import { Tag } from '@nutui/nutui-react';
-
-const App = () => {
-  return (
-    <>
-      <Tag type='primary' onClick={()=>alert('Tag clicked')}>Tag</Tag>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo4.tsx'></CodeBlock>
 
 :::
 
-### Display control
-
-:::demo
-
-```tsx
-import React, {useState} from "react";
-import { Tag,Button } from '@nutui/nutui-react';
-
-const App = () => {
-  const  [isShow,setIsShow] = useState(true) // Whether to display a tag component
-  return (
-    <>
-    {
-      isShow? (
-        <Tag type='primary' onClick={()=>alert('Tag clicked')}>Label</Tag>
-      ):null
-    }  
-    <Button type='default' size="small" onClick={()=>{setIsShow(false)}} >delete</Button>
-    </>
-  )
-  
-}
-export default App;
-```
-
-:::
 
 ## Tag
 
@@ -143,7 +51,7 @@ export default App;
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Label type | `primary` \| `success` \| `danger` \| `warning` | `default` |
+| type | Label type | `primary` \| `default` \| `info` \| `success` \| `danger` \| `warning` | `default` |
 | background | Label background | `string` | `-` |
 | color | Text color, priority is higher than the color attribute | `string` | `white` |
 | plain | Whether it is hollow | `boolean` | `false` |

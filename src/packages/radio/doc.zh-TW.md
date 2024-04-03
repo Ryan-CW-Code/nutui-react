@@ -231,6 +231,25 @@ export default RadioGroupOptions;
 
 :::
 
+## 设置形状
+
+:::demo
+
+```tsx
+import React, { useState } from 'react'
+import { Radio } from '@nutui/nutui-react'
+
+const RadioGroupOptions = () => {
+  return <Radio.Group defaultValue={1} shape='button'>
+    <Radio value={1}>设置形状</Radio>
+    <Radio value={2}>设置形状</Radio>
+  </Radio.Group>
+}
+export default RadioGroupOptions
+```
+
+:::
+
 ## Radio
 
 ### Props
@@ -244,7 +263,7 @@ export default RadioGroupOptions;
 | labelPosition | 文本所在的位置 | `left` \| `right` | `right` |
 | icon | <a href="#/icon">圖標名稱</a>，選中前(建議和`activeIcon`一起修改) | `ReactNode` | `'CheckNormal'` |
 | activeIcon | <a href="#/icon">圖標名稱</a>，選中後(建議和`icon`一起修改) | `ReactNode` | `'CheckChecked'` |
-| shape | 形狀 | `button` \| `round` \| `round` |`round` |
+| shape | 形狀 | `button` \| `round` |`round` |
 | onChange | 選中態變化時觸發 | `(checked: boolean) => void` | `-` |
 
 ## Radio.Group
@@ -256,6 +275,7 @@ export default RadioGroupOptions;
 | value | 當前選中項的標識符 | `string`  \|  `number` | `-` |
 | labelPosition | 文本所在的位置 | `left` \| `right` | `right` |
 | disabled | 是否禁用 | `boolean` | `false` |
+| shape | 形状 | `button` \| `round` |`-` |
 | direction | 使用橫縱方嚮 | `horizontal` \| `vertical` | `vertical` |
 | options | 配置 options 渲染單選按鈕 | `Array<{ label: string value: string disabled?: boolean }>`  | `-` |
 | onChange | 值變化時觸發 | `(value: string \| number) => void` | `-` |

@@ -1,8 +1,16 @@
 import { useRef } from 'react'
 import Schema from 'async-validator'
-import { Store, Callbacks, FormInstance, FieldEntity, NamePath } from './types'
+import {
+  Store,
+  Callbacks,
+  FormInstance,
+  FormFieldEntity,
+  NamePath,
+} from './types'
 
 export const SECRET = 'NUT_FORM_INTERNAL'
+type UpdateItem = { entity: FormFieldEntity; condition: any }
+
 /**
  * 用于存储表单的数据
  */
@@ -10,11 +18,13 @@ class FormStore {
   // 初始化数据
   private initialValues: Store = {}
 
+  private updateList: UpdateItem[] = []
+
   // 存放表单中所有的数据 eg. {password: "ddd",username: "123"}
   private store: Store = {}
 
   // 所有的组件实例
-  private fieldEntities: FieldEntity[] = []
+  private fieldEntities: FormFieldEntity[] = []
 
   // 校验成功或失败的回调，onFinish、onFinishFailed
   private callbacks: Callbacks = {}
@@ -86,13 +96,22 @@ class FormStore {
       ...this.store,
       ...newStore,
     }
-    this.fieldEntities.forEach((entity: FieldEntity) => {
+    this.fieldEntities.forEach((entity: FormFieldEntity) => {
       const { name } = entity.props
       Object.keys(newStore).forEach((key) => {
         if (key === name) {
           entity.onStoreChange('update')
         }
       })
+    })
+    this.updateList.forEach((item: UpdateItem) => {
+      let shouldUpdate = item.condition
+      if (typeof item.condition === 'function') {
+        shouldUpdate = item.condition()
+      }
+      if (shouldUpdate) {
+        item.entity.onStoreChange('update')
+      }
     })
   }
 
@@ -133,7 +152,7 @@ class FormStore {
       // validator.messages()
       try {
         await validator.validate({ [name]: this.store?.[name] })
-      } catch ({ errors }) {
+      } catch ({ errors }: any) {
         if (errors) {
           errs.push(...(errors as any[]))
           this.errors[name] = errors
@@ -160,9 +179,20 @@ class FormStore {
   resetFields = () => {
     this.errors.length = 0
     this.store = this.initialValues
-    this.fieldEntities.forEach((entity: FieldEntity) => {
+    this.fieldEntities.forEach((entity: FormFieldEntity) => {
       entity.onStoreChange('reset')
     })
+  }
+
+  // 监听事件
+  registerUpdate = (field: FormFieldEntity, shouldUpdate: any) => {
+    this.updateList.push({
+      entity: field,
+      condition: shouldUpdate,
+    })
+    return () => {
+      this.updateList = this.updateList.filter((i) => i.entity !== field)
+    }
   }
 
   dispatch = ({ name }: { name: string }) => {
@@ -178,6 +208,7 @@ class FormStore {
         dispatch: this.dispatch,
         store: this.store,
         fieldEntities: this.fieldEntities,
+        registerUpdate: this.registerUpdate,
       }
     }
   }

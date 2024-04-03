@@ -11,8 +11,10 @@ import { createSelectorQuery } from '@tarojs/taro'
 import { useConfig } from '@/packages/configprovider/configprovider.taro'
 
 import { BasicComponent, ComponentDefaults } from '@/utils/typings'
+import { InfiniteLoadingType } from './types'
 
 export interface InfiniteLoadingProps extends BasicComponent {
+  type: InfiniteLoadingType
   hasMore: boolean
   threshold: number
   target: string
@@ -20,13 +22,14 @@ export interface InfiniteLoadingProps extends BasicComponent {
   pullingText: ReactNode
   loadingText: ReactNode
   loadMoreText: ReactNode
-  onRefresh: (param: () => void) => void
-  onLoadMore: (param: () => void) => void
+  onRefresh: () => Promise<void>
+  onLoadMore: () => Promise<void>
   onScroll: (param: number) => void
 }
 
 const defaultProps = {
   ...ComponentDefaults,
+  type: 'default',
   hasMore: true,
   threshold: 40,
   target: '',
@@ -41,6 +44,7 @@ export const InfiniteLoading: FunctionComponent<
   const { locale } = useConfig()
   const {
     children,
+    type,
     hasMore,
     threshold,
     target,
@@ -66,7 +70,7 @@ export const InfiniteLoading: FunctionComponent<
   const refreshMaxH = useRef(0)
   const distance = useRef(0)
 
-  const classes = classNames(classPrefix, className)
+  const classes = classNames(classPrefix, className, `${classPrefix}-${type}`)
 
   useEffect(() => {
     refreshMaxH.current = threshold
@@ -115,12 +119,13 @@ export const InfiniteLoading: FunctionComponent<
     onScroll && onScroll(e.target.scrollTop)
   }
 
-  const lower = () => {
+  const lower = async () => {
     if (!hasMore || isInfiniting) {
       return false
     }
     setIsInfiniting(true)
-    onLoadMore && onLoadMore(infiniteDone)
+    await onLoadMore?.()
+    infiniteDone()
   }
 
   const touchStart = (event: any) => {
@@ -146,12 +151,14 @@ export const InfiniteLoading: FunctionComponent<
     }
   }
 
-  const touchEnd = () => {
+  const touchEnd = async () => {
     if (distance.current < refreshMaxH.current) {
       distance.current = 0
       setTopDisScoll(0)
+      isTouching.current = false
     } else {
-      onRefresh && onRefresh(refreshDone)
+      await onRefresh?.()
+      refreshDone()
     }
   }
 
@@ -169,19 +176,19 @@ export const InfiniteLoading: FunctionComponent<
       onTouchEnd={touchEnd}
     >
       <div className="nut-infinite-top" ref={refreshTop} style={getStyle()}>
-        <div className="top-box">
+        <div className="nut-infinite-top-tips">
           {pullingText || locale.infiniteloading.pullRefreshText}
         </div>
       </div>
       <div className="nut-infinite-container">{children}</div>
       <div className="nut-infinite-bottom">
         {isInfiniting ? (
-          <div className="bottom-box">
+          <div className="nut-infinite-bottom-tips">
             {loadingText || locale.infiniteloading.loadText}
           </div>
         ) : (
           !hasMore && (
-            <div className="bottom-box">
+            <div className="nut-infinite-bottom-tips">
               {loadMoreText || locale.infiniteloading.loadMoreText}
             </div>
           )

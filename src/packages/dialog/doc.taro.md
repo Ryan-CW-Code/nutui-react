@@ -4,7 +4,7 @@
 
 模态对话框，在浮层中显示，引导用户进行相关操作，常用于消息提示、消息确认，或在当前页面内完成特定的交互操作。
 
-弹出框组件支持组件调用。
+弹出框组件支持函数调用和组件调用两种方式。
 
 ## 安装
 
@@ -14,164 +14,68 @@ import { Dialog } from '@nutui/nutui-react-taro'
 
 ## 代码演示
 
-### 函数调用
+### 函数式调用
+
 :::demo
 
-```tsx
-import React, {useState} from "react";
-import { Cell,Dialog } from '@nutui/nutui-react-taro';
-
-const App = () => {
-
-  return (
-    <>
-      <Dialog id="test" />
-      <Cell
-        title="函数调用"
-        onClick={() =>
-          Dialog.open('test', {
-            title: '函数调用',
-            content: '可通过 Dialog.open 打开对话框',
-            onConfirm: () => {
-              Dialog.close('test')
-            },
-            onCancel: () => {
-              Dialog.close('test')
-            },
-          })
-        }
-      />
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='taro/demo1.tsx'></CodeBlock>
 
 :::
 
-
-### 组件调用
+## 以下为标签式使用
+### 基础用法 
 
 :::demo
 
-```tsx
-import React, {useState} from "react";
-import { Cell,Dialog,Image } from '@nutui/nutui-react-taro';
+<CodeBlock src='taro/demo2.tsx'></CodeBlock>
 
-const App = () => {
-  const [visible1, setVisible1] = useState(false)
-  const [visible2, setVisible2] = useState(false)
-  const [visible3, setVisible3] = useState(false)
-  const [visible4, setVisible4] = useState(false)
-  const [visible5, setVisible5] = useState(false)
-  const [visible6, setVisible6] = useState(false)
-  const [visible7, setVisible7] = useState(false);
+:::
 
-  return (
-    <>
-      <Cell title="基础弹框" onClick={() => setVisible1(true)} />
-      <Dialog 
-        title="组件调用"
-        visible={visible1}
-        onConfirm={() => setVisible1(false)}
-        onCancel={() => setVisible1(false)}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
+### footer区域定制
 
-      <Cell title="无标题弹框、不锁背景滚动" onClick={() => setVisible2(true)} />
-      <Dialog 
-        visible={visible2}
-        lockScroll={false}
-        onConfirm={() => setVisible2(false)}
-        onCancel={() => setVisible2(false)}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
+:::demo
 
-      <Cell title="提示弹框" onClick={() => setVisible3(true)} />
-      <Dialog 
-        title="组件调用"
-        visible={visible3}
-        confirmText='确认'
-        hideCancelButton
-        onConfirm={() => setVisible3(false)}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
+<CodeBlock src='taro/demo3.tsx'></CodeBlock>
 
-      <Cell title="底部按钮 垂直布局调用" onClick={() => setVisible4(true)} />
-      <Dialog 
-        title="组件调用"
-        visible={visible4}
-        footerDirection='vertical'
-        onConfirm={() => setVisible4(false)}
-        onCancel={() => setVisible4(false)}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
+:::
 
-      <Cell title="底部 Footer 为 Button 时，点击遮罩不关闭" onClick={() => setVisible5(true)} />
-      <Dialog 
-        title="组件调用"
-        visible={visible5}
-        footerDirection='vertical'
-        closeOnOverlayClick={false}
-        onConfirm={() => setVisible5(false)}
-        onCancel={() => setVissetVisible5ible2(false)}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
+### 点击取消时，拦截
 
-      <Cell title="无底部 Footer 区域" onClick={() => setVisible6(true)} />
-      <Dialog 
-        title="组件调用"
-        visible={visible6}
-        footer={null}
-        onClose={() => {
-          setVisible6(false)
-        }}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
-      <Cell title="点击取消时，拦截" onClick={() => setVisible7(true)} />
-      <Dialog 
-        title="点击取消时，拦截"
-        visible={visible7}
-        closeOnOverlayClick={false}
-        beforeCancel={() => {
-          console.log('stop close')
-          return false
-        }}
-        onClose={() => {
-          setVisible7(false)
-        }}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
-      <Cell
-        title="顶部带插图"
-        onClick={() => {
-          setVisible7(true)
-        }}
-      />
-      <Dialog
-        className="test-dialog"
-        title="顶部带插图"
-        visible={visible7}
-        header={
-          <Image src="https://img13.360buyimg.com/imagetools/jfs/t1/219330/27/30033/11784/6544af3fF5c0fd98f/64c41bb05ef09189.png" />
-        }
-        onConfirm={() => setVisible7(false)}
-        onCancel={() => setVisible7(false)}
-      >
-        如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式。
-      </Dialog>
-    </>
-  )
-}
-export default App;
-```
+:::demo
+
+<CodeBlock src='taro/demo4.tsx'></CodeBlock>
+
+:::
+
+### 确认按钮loading效果
+
+:::demo
+
+<CodeBlock src='taro/demo5.tsx'></CodeBlock>
+
+:::
+
+### 带关闭按钮
+
+:::demo
+
+<CodeBlock src='taro/demo6.tsx'></CodeBlock>
+
+:::
+
+### 自定义内容区域
+
+:::demo
+
+<CodeBlock src='taro/demo7.tsx'></CodeBlock>
+
+:::
+
+### 顶部带插图
+
+:::demo
+
+<CodeBlock src='taro/demo8.tsx'></CodeBlock>
 
 :::
 
@@ -192,6 +96,8 @@ export default App;
 | hideConfirmButton | 是否隐藏确定按钮 | `boolean` | `false` |
 | hideCancelButton | 是否隐藏取消按钮 | `boolean` | `false` |
 | disableConfirmButton | 禁用确定按钮 | `boolean` | `false` |
+| closeIcon | 关闭按钮 | `boolean` \| `ReactNode` | `false` |
+| closeIconPosition | 关闭按钮位置 | `top-left` \| `top-right` \| `bottom` | `top-right` |
 | closeOnOverlayClick | 点击蒙层是否关闭对话框 | `boolean` | `true` |
 | footerDirection | 使用横纵方向 可选值 horizontal、vertical | `string` | `horizontal` |
 | lockScroll | 背景是否锁定 | `boolean` | `false` |
@@ -228,9 +134,17 @@ DialogOptions 是 DialogProps 的子集，包含如下属性：title, content, f
 | \--nutui-dialog-content-max-height | 对话框内容最大高度 | `268px` |
 | \--nutui-dialog-content-line-height | 对话框内容行高 | `20px` |
 | \--nutui-dialog-content-text-align | 对话框内容文本对齐方式 | `left` |
+| \--nutui-dialog-header-font-size | 对话框标题字体大小 | `$font-size-large` |
 | \--nutui-dialog-header-font-weight | 对话框标题字重 | `normal` |
 | \--nutui-dialog-footer-justify-content | 对话框底部按钮排布 | `space-around` |
 | \--nutui-dialog-footer-button-min-width | 对话框底部按钮最小宽度 | `117px` |
 | \--nutui-dialog-footer-cancel-margin-right | 对话框取消按钮的margin-right | `12px` |
 | \--nutui-dialog-footer-ok-max-width | 对话框确认按钮的最大宽度 | `128px` |
 | \--nutui-dialog-vertical-footer-ok-margin-top | 对话框底部按钮纵向排布时的margin值 | `5px` |
+| \--nutui-dialog-close-width | 对话框关闭按钮的宽度 | `18px` |
+| \--nutui-dialog-close-height | 对话框关闭按钮的高度 | `18px` |
+| \--nutui-dialog-close-color | 对话框关闭按钮的颜色 | `#8c8c8c` |
+| \--nutui-dialog-close-top | 对话框关闭按钮的top值 | `16px` |
+| \--nutui-dialog-close-left | 对话框关闭按钮的left值 | `16px` |
+| \--nutui-dialog-close-right | 对话框关闭按钮的right值 | `16px` |
+

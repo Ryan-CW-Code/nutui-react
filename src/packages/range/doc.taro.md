@@ -16,20 +16,7 @@ import { Range } from '@nutui/nutui-react-taro';
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  };
-  return <Cell style={cellStyle}>
-    <Range defaultValue={40} onEnd={(val) => console.log(`${val}`)} />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo1.tsx'></CodeBlock>
 
 :::
 
@@ -37,21 +24,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React, { useState } from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  };
-  const [value, setValue] = useState(40)
-  return <Cell style={{cellStyle}}>
-    <Range value={value} onChange={(val) => setValue(val)} />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo2.tsx'></CodeBlock>
 
 :::
 
@@ -59,26 +32,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell, Toast } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  };
-  return <Cell style={cellStyle}>
-    <Range
-      defaultValue={40}
-      minDescription="0%"
-      maxDescription="100%"
-      currentDescription={(value) => `${value}%`}
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo3.tsx'></CodeBlock>
 
 :::
 
@@ -86,24 +40,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell style={cellStyle}>
-    <Range
-      defaultValue={[20, 80]}
-      range
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo4.tsx'></CodeBlock>
 
 :::
 
@@ -111,25 +48,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell style={cellStyle}>
-    <Range
-      defaultValue={0}
-      max={10}
-      min={-10}
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo5.tsx'></CodeBlock>
 
 :::
 
@@ -137,24 +56,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell style={cellStyle}>
-    <Range
-      defaultValue={30}
-      step={5}
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo6.tsx'></CodeBlock>
 
 :::
 
@@ -162,25 +64,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell style={cellStyle}>
-    <Range
-      defaultValue={30}
-      maxDescription={null}
-      minDescription={null}
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo7.tsx'></CodeBlock>
 
 :::
 
@@ -188,24 +72,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell style={cellStyle}>
-    <Range
-      defaultValue={20}
-      currentDescription={null}
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo8.tsx'></CodeBlock>
 
 :::
 
@@ -213,20 +80,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell style={cellStyle}>
-    <Range defaultValue={50} disabled />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo9.tsx'></CodeBlock>
 
 :::
 
@@ -234,44 +88,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, ConfigProvider, Cell} from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  return <Cell
-    style={{
-      ...cellStyle,
-      display: 'block',
-    }}
-  >
-    <ConfigProvider
-      theme={{
-        nutuiRangeButtonBorder: '1px solid rgba(52,96,250,1)',
-        nutuiRangeActiveColor:
-          'linear-gradient(315deg, rgba(73,143,242,1) 0%,rgba(73,101,242,1) 100%)',
-        nutuiRangeInactiveColor: 'rgba(163,184,255,1)',
-        nutuiRangeMargin: '20px',
-        nutuiRangeHeight: '6px',
-      }}
-    >
-      <Range
-        className="test-range"
-        defaultValue={40}
-        style={{ color: 'red' }}
-        marks={{
-          10: 10,
-          20: 20,
-        }}
-      />
-    </ConfigProvider>
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo10.tsx'></CodeBlock>
 
 :::
 
@@ -279,35 +96,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React, { useState } from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  const buttonStyle = {
-    width: '26px',
-    color: 'white',
-    fontSize: '10px',
-    lineHeight: '18px',
-    textAlign: 'center',
-    backgroundColor: 'red',
-    borderRadius: '10px',
-  }
-  const [value, setValue] = useState(60)
-  return <Cell style={cellStyle}>
-    <Range
-      value={value}
-      button={<div style={buttonStyle}>{value}</div>}
-      onChange={(val) => setValue(val)}
-      onEnd={(val) => console.log(`${val}`)}
-    />
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo11.tsx'></CodeBlock>
 
 :::
 
@@ -315,35 +104,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const verticalStyle = {
-    height: '180px',
-    padding: '10px',
-  }
-  return <Cell style={verticalStyle}>
-    <div style={{ width: '150px', height: '100%' }}>
-      <Range
-        defaultValue={20}
-        vertical
-        onEnd={(val) => console.log(`${val}`)}
-      />
-    </div>
-    <div style={{ width: '150px', height: '100%' }}>
-      <Range
-        defaultValue={[20, 80]}
-        vertical
-        range
-        onEnd={(val) => console.log(`${val}`)}
-      />
-    </div>
-  </Cell>
-};
-export default App;
-```
+<CodeBlock src='taro/demo12.tsx'></CodeBlock>
 
 :::
 
@@ -351,57 +112,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from "react";
-import { Range, Cell } from '@nutui/nutui-react-taro';
-
-const App = () => {
-  const cellStyle = {
-    padding: '40px 18px',
-  }
-  const verticalStyle = {
-    height: '180px',
-    padding: '10px',
-  }
-  return <>
-    <Cell style={cellStyle}>
-      <Range
-        defaultValue={60}
-        maxDescription={null}
-        minDescription={null}
-        marks={marks}
-        onEnd={(val) => console.log(`${val}`)}
-      />
-    </Cell>
-    <Cell style={cellStyle}>
-      <Range
-        defaultValue={[20, 80]}
-        marks={marks}
-        range
-        onEnd={(val) => console.log(`${val}`)}
-      />
-    </Cell>
-    <Cell style={verticalStyle}>
-      <Range
-        defaultValue={60}
-        vertical
-        maxDescription={null}
-        minDescription={null}
-        marks={marks}
-        onEnd={(val) => console.log(`${val}`)}
-      />
-      <Range
-        defaultValue={[20, 80]}
-        vertical
-        marks={marks}
-        range
-        onEnd={(val) => console.log(`${val}`)}
-      />
-    </Cell>
-  </>
-};
-export default App;
-```
+<CodeBlock src='taro/demo13.tsx'></CodeBlock>
 
 :::
 

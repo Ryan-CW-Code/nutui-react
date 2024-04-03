@@ -16,96 +16,50 @@ import { Space } from '@nutui/nutui-react';
 
 :::demo
 
-```tsx
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
-import React from 'react';
-import { Space, Button } from '@nutui/nutui-react';
-
- const App = () => {
-  return (
-    <Space>
-      <Button>按鈕1</Button>
-      <Button>按钮2</Button>
-      <Button>按钮3</Button>
-    </Space>
-  );
-};
-export default App;
-
-```
 :::
+
 ### 換行
 
 :::demo
 
-```tsx
-import React from 'react';
-import { Space, Button } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <Space wrap>
-      <Button>按鈕1</Button>
-      <Button>按钮2</Button>
-      <Button>按钮3</Button>
-      <Button>按钮4</Button>
-      <Button>按钮5</Button>
-      <Button>按钮6</Button>
-    </Space>
-  );
-};
-export default App;
-
-```
 :::
+
 ### 垂直
 
 :::demo
 
-```tsx
-import React from 'react';
-import { Space, Button } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <Space direction="vertical">
-      <Button>按鈕1</Button>
-      <Button>按钮2</Button>
-      <Button>按钮3</Button>
-    </Space>
-  );
-};
-export default App;
-
-```
 :::
+
 ### 間距大小
 
 :::demo
 
-```tsx
-import React from 'react';
-import { Space, Button,ConfigProvider } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo4.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <ConfigProvider
-      theme={{
-        nutuiSpaceGap: '20px',
-      }}
-    >
-      <Space direction="vertical">
-        <Button>按鈕1</Button>
-        <Button>按钮2</Button>
-        <Button>按钮3</Button>
-      </Space>
-    </ConfigProvider>
-  );
-};
-export default App;
-
-```
 :::
+
+### 主軸對齊方式
+
+:::demo
+
+<CodeBlock src='h5/demo5.tsx'></CodeBlock>
+
+:::
+
+### 交叉軸對齊方式
+
+:::demo
+
+<CodeBlock src='h5/demo6.tsx'></CodeBlock>
+
+:::
+
 ## Space
 
 ### Props
@@ -115,7 +69,7 @@ export default App;
 | direction | 間距方嚮 | `'vertical'｜ 'horizontal'` | `'horizontal'` |
 | align | 交叉軸對齊方式 | `'start'｜'end'｜'center'｜'baseline'` | `-` |
 | justify | 主軸對齊方式 | `'start' ｜ 'end' ｜ 'center' ｜ 'between' ｜ 'around' ｜ 'evenly' ｜ 'stretch'` | `-` |
-| wrap | 是否自動換行，僅在 horizontal 時有效 | `boolean / false` | `-` |
+| wrap | 是否自動換行，僅在 horizontal 時有效 | `boolean` | `false` |
 
 ## 主題定制
 

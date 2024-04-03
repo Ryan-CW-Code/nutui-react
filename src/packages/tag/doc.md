@@ -8,7 +8,6 @@
 
 ```tsx
 import { Tag } from '@nutui/nutui-react';
-
 ```
 
 ## 代码演示
@@ -17,23 +16,7 @@ import { Tag } from '@nutui/nutui-react';
 
 :::demo
 
-```tsx
-import React from "react";
-import { Tag } from '@nutui/nutui-react';
-
-const App = () => {
-  return (
-    <>
-      <Tag type="primary">标签</Tag>
-      <Tag type="info">标签</Tag>
-      <Tag type="success">标签</Tag>
-      <Tag type="danger">标签</Tag>
-      <Tag type="warning">标签</Tag>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
 :::
 
@@ -41,29 +24,7 @@ export default App;
 
 :::demo
 
-```tsx
-import React from 'react'
-import { Failure } from '@nutui/icons-react'
-import { Tag } from '@nutui/nutui-react'
-
-const App = () => {
-  return (
-    <>
-      <Tag plain>标签</Tag>
-      <Tag round type='primary'>标签</Tag>
-      <Tag mark type='primary'>标签</Tag>
-      <Tag closeable
-           onClose={() => alert('Tag closed')} 
-           type='primary'>标签</Tag>
-      <Tag closeable
-           closeIcon={<Failure width={8} height={8} />}
-           onClose={() => alert('Tag closed')}
-           type='primary'>标签</Tag>
-    </>
-  )
-}
-export default App
-```
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
 :::
 
@@ -71,21 +32,15 @@ export default App
 
 :::demo
 
-```tsx
-import React from "react";
-import { Tag } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <>
-      <Tag background="#FA685D">标签</Tag>
-      <Tag background="#E9E9E9" color="#999999">标签</Tag>
-      <Tag background="#FA2400" plain>标签</Tag>
-    </>
-  )
-}
-export default App;
-```
+:::
+
+### 图文
+
+:::demo
+
+<CodeBlock src='h5/demo4.tsx'></CodeBlock>
 
 :::
 
@@ -96,7 +51,7 @@ export default App;
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 标签类型 | `primary` \| `success` \| `danger` \| `warning` | `default` |
+| type | 标签类型 | `primary` \| `default` \| `info` \| `success` \| `danger` \| `warning` | `default` |
 | background | 标签颜色 | `string` | `-` |
 | color | 文本颜色，优先级高于color属性 | `string` | `white` |
 | plain | 是否为空心样式 | `boolean` | `false` |

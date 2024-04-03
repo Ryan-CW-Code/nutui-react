@@ -16,88 +16,31 @@ import { Sticky } from '@nutui/nutui-react';
 
 :::demo
 
-```tsx
-import React, { useEffect, useRef, useState } from 'react'
-import {Button,Cell, Sticky } from '@nutui/nutui-react'
-
-const App = () => {
-  const handleChange = (val: boolean) => {
-    console.log('The ceiling state has changed, and the current fixed is', val)
-  }
-  return(
-    <>
-        <h2>Ceiling</h2>
-        <Cell style={{ height: '300px' }}>
-          <Sticky threshold={57} onChange={handleChange}>
-            <Button type="primary">Ceiling button</Button>
-          </Sticky>
-        </Cell>
-        <h2>Ceiling distance</h2>
-        <Cell  style={{ height: '300px' }}>
-          <Sticky threshold={120}>
-            <Button type="primary">Ceiling distance 120px</Button>
-          </Sticky>
-        </Cell>
-        <h2>Suction distance</h2>
-        <Cell style={{ height: '64px' }}>
-          <Sticky threshold={0} position="bottom">
-            <Button type="primary">Suction distance 0px</Button>
-          </Sticky>
-        </Cell>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
 :::
 
-### 指定容器内
+### Ceiling distance
 
 :::demo
 
-```tsx
-import React, { useEffect, useRef, useState } from 'react'
-import {Button,Cell, Sticky } from '@nutui/nutui-react'
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
-const App = () => {
-  const containerTopRef = useRef(null)
-  const containerRef = useRef(null)
-  return(
-    <>
-        <h2>Specify container</h2>
-        <Cell>
-          <div
-            className="sticky-container"
-            ref={containerTopRef}
-            style={{ height: '300px' }}
-          >
-            <Sticky container={containerTopRef} threshold={57}>
-              <Button type="info">
-                Ceiling of designated container
-              </Button>
-            </Sticky>
-          </div>
-        </Cell>
-        <h2>Suction distance of designated container</h2>
-        <Cell>
-          <div
-            className="sticky-container"
-            ref={containerRef}
-            style={{ height: '300px' }}
-          >
-            <Sticky position="bottom" container={containerRef} threshold={0}>
-              <Button  type="info">
-                Suction distance of designated container
-              </Button>
-            </Sticky>
-          </div>
-        </Cell>
-    </>
-  )
-}
-export default App;
-```
+:::
+
+### Ceiling in specified container
+
+:::demo
+
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
+
+:::
+
+### Bottom suction distance
+
+:::demo
+
+<CodeBlock src='h5/demo4.tsx'></CodeBlock>
 
 :::
 

@@ -4,7 +4,7 @@
 
 Maintain the same width in the arrangement of elements.
 
-##  Install
+## Install
 
 ```tsx
 import { Space } from '@nutui/nutui-react';
@@ -16,106 +16,60 @@ import { Space } from '@nutui/nutui-react';
 
 :::demo
 
-```tsx
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
-import React from 'react';
-import { Space, Button } from '@nutui/nutui-react';
-
- const App = () => {
-  return (
-    <Space>
-      <Button>button1</Button>
-      <Button>button2</Button>
-      <Button>button3</Button>
-    </Space>
-  );
-};
-export default App;
-
-```
 :::
+
 ### Wrap
 
 :::demo
 
-```tsx
-import React from 'react';
-import { Space, Button } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <Space wrap>
-      <Button>button1</Button>
-      <Button>button2</Button>
-      <Button>button3</Button>
-      <Button>button4</Button>
-      <Button>button5</Button>
-      <Button>button6</Button>
-    </Space>
-  );
-};
-export default App;
-
-```
 :::
+
 ### Direction
 
 :::demo
 
-```tsx
-import React from 'react';
-import { Space, Button } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <Space direction="vertical">
-      <Button>button1</Button>
-      <Button>button2</Button>
-      <Button>button3</Button>
-    </Space>
-  );
-};
-export default App;
-
-```
 :::
+
 ### Gap
 
 :::demo
 
-```tsx
-import React from 'react';
-import { Space, Button,ConfigProvider } from '@nutui/nutui-react';
+<CodeBlock src='h5/demo4.tsx'></CodeBlock>
 
-const App = () => {
-  return (
-    <ConfigProvider
-      theme={{
-        nutuiSpaceGap: '20px',
-      }}
-    >
-      <Space direction="vertical">
-        <Button>button1</Button>
-        <Button>button2</Button>
-        <Button>button3</Button>
-      </Space>
-    </ConfigProvider>
-  );
-};
-export default App;
-
-```
 :::
+
+### MainAxis alignment
+
+:::demo
+
+<CodeBlock src='h5/demo5.tsx'></CodeBlock>
+
+:::
+
+### CrossAxis alignment
+
+:::demo
+
+<CodeBlock src='h5/demo6.tsx'></CodeBlock>
+
+:::
+
 ## Space
 
 ### Props
 
-| Property | Description                  | Type                                                               | Default                                                          |
-| --- |------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------|
-| direction | space direction              | `vertical \| horizontal`                                           | `horizontal`                                                   |
-| align | space align                  | `start \| end \|center \| baseline`                                | `-`                                                              |
-| justify | space justify                | `start \| end \| center \| between \| around \| evenly \| stretch` | `-` |
-| wrap | space wrap，Only valid when horizontal | `boolean / false`                                                  | `-`                                                              |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| direction | space direction | `vertical \| horizontal` | `horizontal` |
+| align | space align | `start \| end \|center \| baseline` | `-` |
+| justify | space justify | `start \| end \| center \| between \| around \| evenly \| stretch` | `-` |
+| wrap | space wrap，Only valid when horizontal | `boolean` | `false` |
 
 ## Theming
 

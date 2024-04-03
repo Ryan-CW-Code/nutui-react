@@ -18,27 +18,7 @@ import { AvatarCropper } from '@nutui/nutui-react';
 
 :::demo
 
-```tsx
-import React, { useState } from "react";
-import { Avatar, AvatarCropper } from '@nutui/nutui-react';
-
-const App = () => {
-  const [imageUrl, setImageUrl] = useState(
-    'https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png'
-  )
-  const cutImage = (data: any) => {
-    setImageUrl(data)
-  }
-  return (
-    <>
-      <AvatarCropper onConfirm={cutImage}>
-        <Avatar size="large" src={imageUrl} />
-      </AvatarCropper>
-    </>
-  )
-}
-export default App;
-```
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
 :::
 
@@ -48,42 +28,17 @@ export default App;
 
 :::demo
 
-```tsx
-import React, { useState } from "react";
-import { Avatar, AvatarCropper, Button } from '@nutui/nutui-react';
-import { Refresh2, Retweet } from '@nutui/icons-react-taro'
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
-const App = () => {
-  const [imageUrl, setImageUrl] = useState(
-    'https://img12.360buyimg.com/imagetools/jfs/t1/196430/38/8105/14329/60c806a4Ed506298a/e6de9fb7b8490f38.png'
-  )
-  const cutImage = (data: any) => {
-    setImageUrl(data)
-  }
-  return (
-    <>
-      <AvatarCropper
-        toolbarPosition="top"
-        editText="修改"
-        onConfirm={cutImage}
-        toolbar={[
-          <Button type="danger" key="cancel">
-            取消
-          </Button>,
-          <Refresh2 key="reset" />,
-          <Retweet key="rotate" />,
-          <Button type="success" key="confirm">
-            确认
-          </Button>,
-        ]}
-        >
-        <Avatar size="large" src={imageUrl} />
-      </AvatarCropper>
-    </>
-  )
-}
-export default App;
-```
+:::
+
+### 圓形裁剪
+
+設置裁剪展示的形狀，裁剪後還是方形的，需要在展示的地方設置圓角
+
+:::demo
+
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
 
 :::
 
@@ -98,5 +53,6 @@ export default App;
 | toolbarPosition | 裁剪區域工具欄位置,可選值為：`top` `bottom` | `string` | `bottom` |
 | editText | 中間的文字內容 | `ReactNode \| string` | `編輯` |
 | toolbar | 自定義裁剪區域工具欄 | `ReactNode[]` | `[<Button type="danger" key="cancel">取消</Button>, <Button type="info" key="reset">重置</Button>,<Button type="warning" key="rotate">旋转</Button>,<Button type="success" key="confirm">确认</Button>]` |
+| shape | 裁剪形狀,可選值爲：`square` `round` | `string` | `square` |
 | onConfirm | 裁剪後點擊確認觸發 | `(url: string) => void` | `-` |
 | onCancel | 點擊取消觸發 | `-` | `-` |

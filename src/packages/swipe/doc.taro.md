@@ -38,6 +38,76 @@ export default App;
 
 :::
 
+
+### 卡片场景
+:::demo
+
+```tsx
+
+import React from "react";
+import { Swipe, Cell, Button } from '@nutui/nutui-react-taro';
+import { Del } from '@nutui/icons-react-taro'
+
+const divNode = (text: string, style: any) => {
+  return (
+    <div
+      style={{
+        width: '60px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        ...style,
+      }}
+    >
+      <Del style={{ marginBottom: '8px' }}/>
+      <>{text}</>
+    </div>
+  )
+}
+
+const App = () => {
+  return <>
+    <Swipe
+      style={{ height: '104px' }}
+      rightAction={
+        <div
+          style={{
+            height: 'inherit',
+            width: '240px',
+            display: 'flex',
+            fontSize: '12px',
+          }}
+        >
+          <>
+            {divNode('设置常买', {
+              background: '#F8F8F8',
+              color: '#1A1A1A',
+            })}
+            {divNode('移入收藏', {
+              background: '#ffcc00',
+              color: '#FFF',
+            })}
+            {divNode('看相似', {
+              background: '#FF860D',
+              color: '#FFF',
+            })}
+            {divNode('删除', {
+              background: '#FA2C19',
+              color: '#FFF',
+            })}
+          </>
+        </div>
+      }
+    >
+      <Cell title={`${translated.leftDel}+Icon`} radius={0} />
+    </Swipe>
+  </>
+}
+export default App;
+
+```
+
 ### 阻止父元素滚动
 
 :::demo
@@ -316,9 +386,9 @@ export default App;
 | onOpen | 打开单元格侧边栏 | `(name, position): { name: string \| number, position: 'left' \| 'right' } => void` | `-` |
 | onClose | 收起单元格侧边栏 | `(name, position): { name: string \| number, position: 'left' \| 'right' } => void` | `-` |
 | onActionClick | 点击左侧或者右侧时触发 | `(event: MouseEvent<HTMLDivElement>, position: 'left' \|'right') => void` | `-` |
-| onTouchStart | onTouchStart | `(event: TouchEvent<HTMLDivElement>) => void` | `-` |
-| onTouchMove | onTouchMove | `(event: TouchEvent<HTMLDivElement>) => void` | `-` |
-| onTouchEnd | onTouchEnd | `(event: TouchEvent<HTMLDivElement>) => void` | `-` |
+| onTouchStart | 开始触碰时触发 | `(event: TouchEvent<HTMLDivElement>) => void` | `-` |
+| onTouchMove | 滑动时触发 | `(event: TouchEvent<HTMLDivElement>) => void` | `-` |
+| onTouchEnd | 结束触碰时触发 | `(event: TouchEvent<HTMLDivElement>) => void` | `-` |
 
 ### Ref
 

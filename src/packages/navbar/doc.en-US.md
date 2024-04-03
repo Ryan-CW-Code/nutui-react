@@ -10,182 +10,29 @@ Provides navigation capabilities.
 import { NavBar } from '@nutui/nutui-react';
 ```
 
-## code example
+## Code Example
 
-### Basic usage
+### Basic Usage
 
 :::demo
 
-```tsx
-import  React from "react";
-import { NavBar, Toast } from '@nutui/nutui-react';
-import { ArrowLeft, Share, Close } from '@nutui/icons-react'
-
-const App = () => {
-  return ( 
-    <NavBar
-        back={
-        <>
-            <ArrowLeft color="#979797" />
-            back
-        </>
-        }
-        left={<Close width={12} />}
-        right={
-        <span onClick={(e) =>  Toast.show('icon')}>
-            <Share />
-        </span>
-        }
-        onBackClick={(e) => Toast.show("back")}
-    >
-        <span onClick={(e) => Toast.show("title")}>
-        order details
-        </span>
-    </NavBar>
-  );
-};  
-export default App;
-
-```
+<CodeBlock src='h5/demo1.tsx'></CodeBlock>
 
 :::
 
+### Title Align
+
 :::demo
 
-```tsx
-import  React from "react";
-import { NavBar, Toast } from '@nutui/nutui-react';
-import { ArrowLeft } from '@nutui/icons-react'
-
-const App = () => {
-  return ( 
-    <NavBar
-        right={
-        <span onClick={(e) => Toast.show('清空')}>
-            clear
-        </span>
-        }
-        back={<ArrowLeft color="#979797" />}
-        onBackClick={(e) => Toast.show("back")}
-    >
-        <span onClick={(e) => Toast.show("title")}>
-        Browsing history
-        </span>
-    </NavBar>
-  );
-};  
-export default App;
-
-```
+<CodeBlock src='h5/demo2.tsx'></CodeBlock>
 
 :::
 
-:::demo
-
-```tsx
-import  React from "react";
-import { NavBar, Toast } from '@nutui/nutui-react';
-import { Cart, ArrowLeft, More} from '@nutui/icons-react'
-
-const App = () => {
-  return ( 
-    <NavBar
-        back={<ArrowLeft color="#979797" />}
-        right={
-        <>
-            <span style={{ marginRight: '5px' }} onClick={(e) => Toast.show('edit')}>
-            edit
-            </span>
-            <More onClick={(e) => Toast.show('icon')} />
-        </>
-        }
-        onBackClick={(e) => Toast.show("back")}
-    >
-        <span onClick={(e) => Toast.show("title")}>
-        cart
-        </span>
-        <i style={{ marginLeft: '5px' }} onClick={(e) => Toast.show('icon')}>
-            <Cart />
-        </i>
-    </NavBar>
-  );
-};  
-export default App;
-
-```
-
-:::
+### Multi-tab Switching Navigation
 
 :::demo
 
-```tsx
-import  React, { useState } from "react";
-import { NavBar, Tabs, TabPane, Toast } from '@nutui/nutui-react';
-import { ArrowLeft,More } from '@nutui/icons-react'
-
-const App = () => {
-  const [tab1value, setTab1value] = useState('0')
-  return ( 
-    <NavBar
-         back={<ArrowLeft color="#979797" />}
-          right={
-            <>
-              <span style={{ marginRight: '5px' }} onClick={(e) => Toast.show("edit")}>
-                edit
-              </span>
-              <More onClick={(e) => Toast.show('icon')} />
-            </>
-          }
-          onBackClick={(e) => Toast.show("back")}
-        >
-            <Tabs value={tab1value} onChange={({ paneKey }) => { setTab1value(paneKey) }}>
-              <TabPane title="Tab 1"> Tab 1 </TabPane>
-              <TabPane title="Tab 2"> Tab 2 </TabPane>
-              <TabPane title="Tab 3"> Tab 3 </TabPane>
-            </Tabs>
-      </NavBar>
-  );
-};  
-export default App;
-
-```
-
-:::
-
-:::demo
-
-```tsx
-import  React from "react";
-import { NavBar, Toast } from '@nutui/nutui-react';
-import { ArrowLeft, Share, Close } from '@nutui/icons-react'
-
-const App = () => {
-  return ( 
-    <NavBar
-        titleAlign="left"
-        back={
-        <>
-            <ArrowLeft color="#979797" />
-            back
-        </>
-        }
-        left={<Close width={12} />}
-        right={
-        <span onClick={(e) =>  Toast.show('icon')}>
-            <Share />
-        </span>
-        }
-        onBackClick={(e) => Toast.show("back")}
-    >
-        <span onClick={(e) => Toast.show("title")}>
-        order details
-        </span>
-    </NavBar>
-  );
-};  
-export default App;
-
-```
+<CodeBlock src='h5/demo3.tsx'></CodeBlock>
 
 :::
 
@@ -200,7 +47,7 @@ export default App;
 | back | Returns the text of the area | `ReactNode` | `-` |
 | titleAlign | Title align, optional value center、left | `string` | `center` |
 | fixed | Is it fixed | `boolean` | `false` |
-| safeArea | Whether it is suitable for the safe area | `boolean` | `false` |
+| safeAreaInsetTop | Whether it is suitable for the safe area | `boolean` | `false` |
 | placeholder | When fixed to the top, whether to generate a placeholder element of equal height at the label position | `boolean` | `false` |
 | zIndex | Navigation Bar Hierarchy | `number` \| `string` | `10` |
 | onBackClick | Click the callback after the return area | `onBackClick:(event: Event)=>void` | `false` |
